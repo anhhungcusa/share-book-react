@@ -6,12 +6,9 @@
 	border: 0;
 	vertical-align: baseline;
 }
-
-html,
 body {
-	height: auto !important;
+	font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
 }
-
 p {
 	word-break: break-word;
 	text-align: justify;
@@ -26,6 +23,7 @@ img {
 	height: 100%;
 }
 
+/* atomic */
 .container {
 	width: 80%;
 	margin: 0 auto;
