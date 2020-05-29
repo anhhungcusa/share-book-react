@@ -1,5 +1,6 @@
 import { axios } from "../config/axios";
-export const pathname = '/users' 
+
+const pathname = '/users' 
 
 const registerUser = ({email, password, username}, token) => {
   return axios({
@@ -66,6 +67,7 @@ const fetchGiveawaysByUser = (userId, token, {skip, limit, ...query}) => {
 
 
 export default {
+  pathname,
   registerUser,
   fetchUserById,
   fetchGiveawaysByUser

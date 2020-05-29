@@ -1,9 +1,10 @@
 import { axios } from '../config/axios';
+const pathname = '/auth'
 
 const login = (email, password) => {
 	return axios({
 		method: 'post',
-		url: 'auth/login',
+		url: `${pathname}/login`,
 		data: { email, password }
 	})
 		.then((res) => res.data)
@@ -15,5 +16,6 @@ const login = (email, password) => {
 
 
 export default {
+	pathname,
 	login
 };
