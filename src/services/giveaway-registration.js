@@ -1,6 +1,6 @@
 import { axios } from "../config/axios"
 
-const pathname = '/registration'
+const pathname = '/registrations'
 
 const registerGiveaway = (email, luckyNumber, giveawayId) => {
 
