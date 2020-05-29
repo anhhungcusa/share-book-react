@@ -19,7 +19,7 @@ const registerUser = ({email, password, username}, token) => {
     .catch(err => {
       const messageError =
         (err.response && err.response.data && err.response.data.message) ||
-        "registration failed";
+        "action failed";
       throw new Error(messageError);
     });
 };
