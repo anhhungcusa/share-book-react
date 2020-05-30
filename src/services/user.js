@@ -2,12 +2,9 @@ import { axios } from "../config/axios";
 
 const pathname = '/users' 
 
-const registerUser = ({email, password, username}, token) => {
+const registerUser = (email, password, username) => {
   return axios({
     url: pathname,
-    headers: {
-      'Authorization': `Bearer ${token}`
-    },
     method: "post",
     data: {
       email,
