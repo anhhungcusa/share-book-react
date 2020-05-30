@@ -15,7 +15,7 @@ const login = (email, password) => {
 };
 
 
-export default {
+export const AuthService =  {
 	pathname,
 	login
 };
