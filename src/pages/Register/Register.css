@@ -1,0 +1,33 @@
+.register-page {
+    margin-top: 100px;
+  }
+  .register-page .card {
+    border: 1px solid #dbdbdb;
+    width: 350px;
+    border-radius: 3px;
+    margin: 0 0 10px;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  .card .title {
+    color: #2f89c5;
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+  
+  .register-form {
+    padding: 20px 40px 10px;
+  }
+  
+  .register-form .form-button {
+    border-radius: 4px;
+    height: 35px;
+    width: 100%;
+    font-weight: 600;
+  }
+  
+  .register-page .card:last-child {
+    background: white;
+  }
+  
