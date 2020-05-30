@@ -104,7 +104,7 @@ const removeGiveaway = (giveawayId, token) => {
         })
 }
 
-export default {
+export const GiveawayService =  {
     pathname,
     createGiveaway,
     startGiveaway,

@@ -36,4 +36,4 @@ const createCategory = ({ name }, token) => {
         })
 }
 
-export default { pathname, createCategory, fetchCategories };
+export const CategoryService =  { pathname, createCategory, fetchCategories };

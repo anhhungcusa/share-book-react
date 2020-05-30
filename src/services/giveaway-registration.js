@@ -20,4 +20,4 @@ const registerGiveaway = (email, luckyNumber, giveawayId) => {
         })
 }
 
-export default {pathname, registerGiveaway}
+export const GiveawayRegistrationService = {pathname, registerGiveaway}

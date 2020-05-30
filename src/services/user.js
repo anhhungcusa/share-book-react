@@ -66,7 +66,7 @@ const fetchGiveawaysByUser = (userId, token, {skip, limit, ...query}) => {
 
 
 
-export default {
+export const UserService =  {
   pathname,
   registerUser,
   fetchUserById,
