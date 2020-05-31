@@ -16,6 +16,7 @@ export function useRouter() {
 			return {
 				// For convenience add push(), replace(), pathname at top level
 				push: history.push,
+				goBack: history.goBack,
 				replace: history.replace,
 				pathname: location.pathname,
 				state:location.state,
