@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import "./Login.css";
 import { Form, Input, Button, message } from "antd";
 import { useRouter } from "../../hooks/useRouter";
@@ -6,11 +6,19 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DataContext } from "../../context/DataProvider";
 import { AuthService } from "../../services/auth";
+import { CookieService } from "../../services/storage";
+import { env } from "../../config/globals";
 export const LoginPage = () => {
   const router = useRouter();
   const {
+    state: {auth},
     action: { setAuth }
   } = useContext(DataContext);
+  useEffect(() => {
+    if(auth.isLoggedIn === true) {
+      router.goBack()
+    }
+  }, [auth.isLoggedIn, router])
   const [isValidForm, setIsValidForm] = useState(false);
   const onChangeFields = (_, allFields) => {
     const isValid = allFields.every(
@@ -33,6 +41,9 @@ export const LoginPage = () => {
       .then(({ token, user }) => {
         const { from = "/" } = router.state || {};
         setAuth(user, token);
+        CookieService.setCookie(
+          env.COOKIE_SECRET_KEY, 
+          token)
         message.success("login successful");
         router.replace(from);
       })
