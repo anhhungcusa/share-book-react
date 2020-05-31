@@ -13,11 +13,13 @@ const initState = {
 		token: null
 	},
 	publicGiveaways: null,
+	myGiveaways: null,
 	categories: null,
 	loads: {
 		auth: false,
 		publicGiveaways: false,
-		categories: false
+		categories: false,
+		myGiveaways: false
 	}
 };
 const initStateTest = {
@@ -72,7 +74,34 @@ export const DataProvider = ({ children }) => {
 			return {...state, publicGiveaways: giveaways}
 		})
 	}
-	 
+	const setMyGiveaways = (giveaways) => {
+		setState(state => {
+			return {...state, myGiveaways: giveaways}
+		})
+	}
+
+	const addGiveaway = giveaway => {
+		setState(state => {
+			const newPublicGiveaways = state.publicGiveaways ? [giveaway, ...state.publicGiveaways] : [giveaway]
+			const newMyGiveaways = state.publicGiveaways ? [giveaway, ...state.myGiveaways] : [giveaway]
+			return {...state, publicGiveaways: newPublicGiveaways, myGiveaways: newMyGiveaways}
+		})
+	}
+
+
+	// handle category
+	const setCategories = categories => {
+		setState(state => {
+			return {...state, categories: categories}
+		})
+
+	}
+ 	const addCategory = category => {
+		setState(state => {
+			const newCategories = state.categories ? [category, ...state.categories] : [category]
+			return {...state, categories: newCategories}
+		})
+	}
 
 	const setLoading = (field, isLoading = false) => {
 		setState((state) => {
@@ -93,9 +122,12 @@ export const DataProvider = ({ children }) => {
 					setAuth,
 					resetAuth,
 					setPublicGiveaways,
+					setMyGiveaways,
+					addGiveaway,
+					setCategories,
+					addCategory,
 					setLoading,
 					resetState,
-
 				}
 			}}
 		>
