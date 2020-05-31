@@ -129,6 +129,17 @@ export const CreateGiveawayModal = ({
                     </Select>
                 </Form.Item>
                 <Form.Item
+                    name="begin"
+                    label="Start at"
+                    rules={[{ required: true, message: 'start at is required'}]}
+                >
+                    <DatePicker
+                        format="YYYY-MM-DD HH:mm:ss"
+                        disabledDate={disabledDate}
+                        showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
+                    />
+                </Form.Item>
+                <Form.Item
                     name="title"
                     label="Title"
                     rules={[{ required: true, message: 'title is required' }]}
@@ -188,17 +199,7 @@ export const CreateGiveawayModal = ({
                 >
                     <Input type='number' />
                 </Form.Item>
-                <Form.Item
-                    name="begin"
-                    label="Start at"
-                    rules={[{ required: true, message: 'start at is required'}]}
-                >
-                    <DatePicker
-                        format="YYYY-MM-DD HH:mm:ss"
-                        disabledDate={disabledDate}
-                        showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
-                    />
-                </Form.Item>
+
                 <Form.Item>
                     <div className="d-flex-center w-100 d-flex-center">
                         <Button

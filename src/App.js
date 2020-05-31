@@ -5,6 +5,9 @@ import { Header } from './components/Header/Header';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { LoginPage } from './pages/Login/Login';
 import { RegisterPage } from './pages/Register/Register';
+import { GiveawayPage } from './pages/Giveaway/Giveaway';
+import { RouteWithAuth } from './components/custom-routes/withAuth';
+import { ManageGiveawaysPage } from './pages/ManageGiveaways/ManageGiveaways';
 
 function App() {
   useEffect(() => {
@@ -22,6 +25,12 @@ function App() {
             <Route path="/register">
               <RegisterPage />
             </Route>
+            <Route exact path="/">
+              <GiveawayPage />
+            </Route>
+            <RouteWithAuth  path="/manage-giveaways">
+              <ManageGiveawaysPage />
+            </RouteWithAuth>
           </Switch>
         </DataProvider>
       </Router>

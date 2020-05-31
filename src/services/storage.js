@@ -19,9 +19,9 @@ export const SessionService = {
     removeSStorage
 }
 
-export const setCookie = (key, jwtToken, exp) => {
+export const setCookie = (key, jwtToken) => {
     const decoded = decode(jwtToken)
-    let expires = exp || new Date(decoded.exp * 1000)
+    let expires = new Date(decoded.exp * 1000)
     expires = expires.toUTCString()
     document.cookie = `${key}=${jwtToken}; expires=${expires}`
     

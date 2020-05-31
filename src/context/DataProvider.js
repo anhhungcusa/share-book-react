@@ -20,6 +20,12 @@ const initState = {
 		publicGiveaways: false,
 		categories: false,
 		myGiveaways: false
+	},
+	initLoads: {
+		auth: false,
+		publicGiveaways: false,
+		categories: false,
+		myGiveaways: false
 	}
 };
 const initStateTest = {
@@ -45,7 +51,7 @@ const initStateTest = {
 };
 export const DataProvider = ({ children }) => {
 	const [ state, setState ] = useState(
-		// initStateTest
+		// initStateTest,
 		initState
 	);
 	useEffect(() => {
@@ -81,9 +87,11 @@ export const DataProvider = ({ children }) => {
 	}
 
 	const addGiveaway = giveaway => {
+		giveaway.byUser = state.auth.user
+		giveaway.category = state.categories.find(category => category._id === giveaway.category)
 		setState(state => {
 			const newPublicGiveaways = state.publicGiveaways ? [giveaway, ...state.publicGiveaways] : [giveaway]
-			const newMyGiveaways = state.publicGiveaways ? [giveaway, ...state.myGiveaways] : [giveaway]
+			const newMyGiveaways = state.myGiveaways ? [giveaway, ...state.myGiveaways] : [giveaway]
 			return {...state, publicGiveaways: newPublicGiveaways, myGiveaways: newMyGiveaways}
 		})
 	}
@@ -110,6 +118,13 @@ export const DataProvider = ({ children }) => {
 		});
 	};
 
+	const setInitLoading = (field, isLoading = false) => {
+		setState((state) => {
+			const newLoads = { ...state.initLoads, [field]: isLoading };
+			return {...state, initLoads: newLoads};
+		});
+	};
+
 	const resetState = () => {
 		setState(initState);
 	};
@@ -127,6 +142,7 @@ export const DataProvider = ({ children }) => {
 					setCategories,
 					addCategory,
 					setLoading,
+					setInitLoading,
 					resetState,
 				}
 			}}

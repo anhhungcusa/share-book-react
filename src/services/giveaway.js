@@ -67,7 +67,7 @@ const updateWinnerInfo = ({fullname, address, phone, email}, giveawayId, token) 
         })
 }
 
-const getGiveaways = (categoryId, ended, {skip, limit}, token) => {
+const fetchGiveaways = (categoryId, ended, {skip, limit}, token) => {
     return axios({
         url: pathname,
         headers: {
@@ -109,6 +109,6 @@ export const GiveawayService =  {
     createGiveaway,
     startGiveaway,
     updateWinnerInfo,
-    getGiveaways,
+    getGiveaways: fetchGiveaways,
     removeGiveaway
 }

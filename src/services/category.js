@@ -21,12 +21,9 @@ const createCategory = ({ name }, token) => {
 		});
     };
     
-    const fetchCategories = (token) => {
+    const fetchCategories = () => {
         return axios({
             url: pathname,
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
             method: 'get',
         }).then(res => res.data.categories)
         .catch(err => {
