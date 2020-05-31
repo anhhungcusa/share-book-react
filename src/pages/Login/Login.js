@@ -15,7 +15,8 @@ export const LoginPage = () => {
     action: { setAuth }
   } = useContext(DataContext);
   useEffect(() => {
-    if(auth.isLoggedIn === true) {
+    const hasFrom = router.state ? router.state.from : undefined
+    if(auth.isLoggedIn === true && !hasFrom) {
       router.goBack()
     }
   }, [auth.isLoggedIn, router])

@@ -24,9 +24,14 @@ const initStateTest = {
 	auth: {
 		isLoggedIn: true,
 		user: {
-			username: 'ngu'
+			createdAt: "2020-05-30T17:16:56.504Z",
+			email: "test@gmail.com",
+			updatedAt: "2020-05-30T17:16:56.504Z",
+			username: "test",
+			__v: 0,
+			_id: "5ed29508150d2b5ed4350b28"
 		},
-		token: null
+		token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWQyOTUwODE1MGQyYjVlZDQzNTBiMjgiLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE1OTA5MDM1MjYsImV4cCI6MTU5MTUwODMyNn0.XTr-JTuhgq3ge_vpqRxOCnQLWdF16YrVrl5PyBv8o2s'
 	},
 	publicGiveaways: null,
 	categories: null,
@@ -48,6 +53,8 @@ export const DataProvider = ({ children }) => {
 			setAuth(token, user);
 		}
 	}, []);
+
+	// handle auth
 	const setAuth = (token, user) => {
 		setState((state) => {
 			const newAuth = { token, user, isLoggedIn: true };
@@ -59,6 +66,13 @@ export const DataProvider = ({ children }) => {
 			return { ...state, auth: initState.auth };
 		});
 	};
+	// handle public giveaways
+	const setPublicGiveaways = (giveaways) => {
+		setState(state => {
+			return {...state, publicGiveaways: giveaways}
+		})
+	}
+	 
 
 	const setLoading = (field, isLoading = false) => {
 		setState((state) => {
@@ -78,8 +92,10 @@ export const DataProvider = ({ children }) => {
 				action: {
 					setAuth,
 					resetAuth,
+					setPublicGiveaways,
 					setLoading,
-					resetState
+					resetState,
+
 				}
 			}}
 		>
