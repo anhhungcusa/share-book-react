@@ -9,7 +9,7 @@ const registerUser = (email, password, username) => {
     data: {
       email,
       password,
-      name: username
+      username
     }
   })
     .then(res => res.data.message)

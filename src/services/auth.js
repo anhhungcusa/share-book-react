@@ -1,11 +1,11 @@
 import { axios } from '../config/axios';
 const pathname = '/auth'
 
-const login = (email, password) => {
+const login = (username, password) => {
 	return axios({
 		method: 'post',
 		url: `${pathname}/login`,
-		data: { email, password }
+		data: { username, password }
 	})
 		.then((res) => res.data)
 		.catch((err) => {
