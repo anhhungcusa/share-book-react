@@ -20,8 +20,27 @@ const initState = {
 		categories: false
 	}
 };
+const initStateTest = {
+	auth: {
+		isLoggedIn: true,
+		user: {
+			username: 'ngu'
+		},
+		token: null
+	},
+	publicGiveaways: null,
+	categories: null,
+	loads: {
+		auth: false,
+		publicGiveaways: false,
+		categories: false
+	}
+};
 export const DataProvider = ({ children }) => {
-	const [ state, setState ] = useState(initState);
+	const [ state, setState ] = useState(
+		// initStateTest
+		initState
+	);
 	useEffect(() => {
 		const token = CookieService.getCookie(env.COOKIE_SECRET_KEY);
 		if (token) {
@@ -32,28 +51,25 @@ export const DataProvider = ({ children }) => {
 	const setAuth = (token, user) => {
 		setState((state) => {
 			const newAuth = { token, user, isLoggedIn: true };
-			state.auth = newAuth;
-			return state;
+			return { ...state, auth: newAuth };
 		});
 	};
 	const resetAuth = () => {
 		setState((state) => {
-			state.auth = initState.auth;
-			return state;
+			return { ...state, auth: initState.auth };
 		});
 	};
 
 	const setLoading = (field, isLoading = false) => {
 		setState((state) => {
 			const newLoads = { ...state.loads, [field]: isLoading };
-			state.loads = newLoads;
-			return state;
+			return {...state, loads: newLoads};
 		});
 	};
 
 	const resetState = () => {
-		setState(initState)
-	}
+		setState(initState);
+	};
 
 	return (
 		<DataContext.Provider
