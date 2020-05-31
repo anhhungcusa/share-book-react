@@ -40,15 +40,18 @@ export const RegisterPage = () => {
           >
             <Form.Item
               name="email"
-              rules={[{ required: true }, { type: "email" }]}
+              rules={[
+                  { required: true, message: 'email is required' }, 
+                  { type: "email", message: 'email is not valid' }
+                ]}
               hasFeedback
             >
               <Input className="form-input" placeholder="Email" />
             </Form.Item>
-            <Form.Item name="username" rules={[{ required: true }]} hasFeedback>
+            <Form.Item name="username" rules={[{ required: true, message: 'username is required' }]} hasFeedback>
               <Input className="form-input" placeholder="username" />
             </Form.Item>
-            <Form.Item name="password" hasFeedback rules={[{ required: true }]}>
+            <Form.Item name="password" hasFeedback rules={[{ required: true, message: 'password is required' }]}>
               <Input.Password className="form-input" placeholder="password" />
             </Form.Item>
             <Form.Item>
@@ -59,7 +62,7 @@ export const RegisterPage = () => {
                 loading={loading}
                 className="form-button"
               >
-                Register
+                Submit
               </Button>
             </Form.Item>
           </Form>

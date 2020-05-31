@@ -56,12 +56,12 @@ export const LoginPage = () => {
           >
             <Form.Item
               name="username"
-              rules={[{ required: true}]}
+              rules={[{ required: true, message: 'username is required'}]}
               hasFeedback
             >
               <Input className="form-input" placeholder="username" />
             </Form.Item>
-            <Form.Item name="password" hasFeedback rules={[{ required: true }]}>
+            <Form.Item name="password" hasFeedback rules={[{ required: true, message: 'password is required' }]}>
               <Input.Password className="form-input" placeholder="password" />
             </Form.Item>
             <Form.Item>
@@ -71,7 +71,7 @@ export const LoginPage = () => {
                 loading={loading}
                 className="form-button"
               >
-                Login
+                Submit
               </Button>
             </Form.Item>
           </Form>
