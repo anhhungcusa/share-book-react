@@ -1,0 +1,21 @@
+.categories {
+    /* max-width: 150px; */
+
+}
+.categories .ant-list-items {
+    padding: 1px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.categories .categories__item:hover {
+    cursor: pointer;
+    background-color: #1890ff;
+    color: white;
+    /* border: none; */
+}
+.categories .categories__item--active {
+    background-color: #1890ff;
+    color: white;
+    cursor: not-allowed
+}

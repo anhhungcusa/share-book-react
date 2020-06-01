@@ -5,6 +5,7 @@ import moment from 'moment'
 import './CreateGiveawayModal.css';
 import { FitLoading } from '../../common/Loading';
 import { beforeUpload, getBase64 } from '../../../utils';
+import { env } from '../../../config/globals';
 export const CreateGiveawayModal = ({
     visible,
     close,
@@ -168,7 +169,8 @@ export const CreateGiveawayModal = ({
                     <Upload
                         listType="picture-card"
                         showUploadList={false}
-                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        action={`${env.SERVER_URL}/users/mock-upload`}
+                        // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                         beforeUpload={(file) => beforeUpload(file, message)}
                         onChange={handleChangeImageUrl}
                     >

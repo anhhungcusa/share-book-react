@@ -19,7 +19,7 @@ export const ManageGiveawaysPage = () => {
     } = useContext(DataContext)
     useEffect(() => {
         if (!auth.user) return
-        if (categories === null && initLoads.categories === false) {
+        if (initLoads.categories === false) {
             setLoading('categories', true)
             CategoryService.fetchCategories()
                 .then(categories => {
@@ -32,7 +32,7 @@ export const ManageGiveawaysPage = () => {
                     // set
                 })
         }
-        if (myGiveaways === null && initLoads.myGiveaways === false) {
+        if (initLoads.myGiveaways === false) {
             setLoading('myGiveaways', true)
             UserService.fetchGiveawaysByUser(auth.user._id, auth.token, { skip: 0, limit: 100 })
                 .then(giveaways => {
@@ -48,7 +48,7 @@ export const ManageGiveawaysPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const [actionLoading, setActionLoading] = useState(false)
-    const [clickedGiveaway, setClickedGiveaway] = useState(null)
+    const [clickedGiveawayId, setClickedGiveawayId] = useState(null)
     const [visibleModal, setVisibleModal] = useState(false)
 
     const openModal = () => setVisibleModal(true)
@@ -78,7 +78,7 @@ export const ManageGiveawaysPage = () => {
             message.error('current time must be larger than begin')
             return
         }
-        setClickedGiveaway(giveawayId)
+        setClickedGiveawayId(giveawayId)
         setActionLoading(true)
         GiveawayService.startGiveaway(giveawayId, auth.token)
             .then(giveaway => {
@@ -98,7 +98,7 @@ export const ManageGiveawaysPage = () => {
             .finally(_ => setActionLoading(false))
     }
     const removeGiveaway = (giveawayId) => {
-        setClickedGiveaway(giveawayId)
+        setClickedGiveawayId(giveawayId)
         setActionLoading(true)
         GiveawayService.removeGiveaway(giveawayId, auth.token)
             .then(giveaway => {
@@ -178,14 +178,14 @@ export const ManageGiveawaysPage = () => {
             children: [
                 {
                     key: 'giftTitle',
-                    title: 'gift title',
+                    title: 'title',
                     align: 'center',   
                     dataIndex: 'gift',
                     render: gift => gift.title
                 },
                 {
                     key: 'giftImg',
-                    title: 'gift image',
+                    title: 'image',
                     align: 'center',   
                     dataIndex: 'gift',
                     // width: '100px',
@@ -234,12 +234,16 @@ export const ManageGiveawaysPage = () => {
             align: 'center',   
             render: giveaway => {
                 return (
-                    <Space direction='horizontal'>
+                    <Space direction='vertical'>
                         {
                             !giveaway.result &&
-                            <Button onClick={() => startGiveaway(giveaway)}>start</Button>
+                            <Button 
+                            loading={ clickedGiveawayId  === giveaway._id ? actionLoading : false }  
+                            onClick={() => startGiveaway(giveaway)}>start</Button>
                         }
-                        <Button  onClick={() => removeGiveaway(giveaway._id)}>remove</Button>
+                        <Button 
+                        loading={ clickedGiveawayId  === giveaway._id ? actionLoading : false }
+                        onClick={() => removeGiveaway(giveaway._id)}>remove</Button>
                     </Space>
                 )
             }
