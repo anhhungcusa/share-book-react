@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useMemo } from 'react'
 import './Giveaway.css'
 import { DataContext } from '../../context/DataProvider'
 import { GiveawayService } from '../../services/giveaway'
-import { message, Row, Col, List } from 'antd'
+import { message, Row, Col, List, Divider } from 'antd'
 import { CategoryService } from '../../services/category'
 import { CategoryList } from '../../components/CategoryList/CategoryList'
 import { GiveawayCard } from '../../components/GiveawayCard/GiveawayCard'
@@ -51,6 +51,23 @@ export const GiveawayPage = () => {
         setSelectedCategoryId(id)
     }
     const [displayGiveaways, setDisplayGiveaways] = useState(null)
+    const [activeGiveaways, stoppedGiveaways] = useMemo(() => {
+        if(!displayGiveaways) return [null, null]
+        return displayGiveaways.reduce((acc, giveaway) => {
+            if(!giveaway.result) {
+                if(acc[0] === undefined) acc[0] = []
+                let [activeGiveaways] = acc
+                activeGiveaways.push(giveaway)
+            } else {
+                if(acc[1] === undefined) acc[1] = []
+                // eslint-disable-next-line no-unused-vars
+                let [ _ , stopGiveaways = []] = acc
+                stopGiveaways.push(giveaway)
+            }
+            console.log(acc)
+            return acc
+        }, [undefined, undefined])
+    }, [displayGiveaways])
     useEffect(() => {
         if(!publicGiveaways) return
         if(selectedCategoryId === defaultSelectedCategory._id) {
@@ -73,11 +90,12 @@ export const GiveawayPage = () => {
                                 categories={categories !== null && [defaultSelectedCategory, ...categories]}
                                 loading={loads.categories}
                                 defaultSelectedCategory={defaultSelectedCategory}
-                            />
+                                />
                         </div>
                     </Col>
                     <Col xs={24} sm={20} md={20} lg={20} xl={20}>
                         <div className="giveaway-list">
+                            <Divider>Active Giveaways</Divider>
                             <List
                                 grid={{
                                     gutter: 16,
@@ -88,7 +106,25 @@ export const GiveawayPage = () => {
                                     xl: 4,
                                   }}
                                 loading={loads.publicGiveaways}
-                                dataSource={displayGiveaways ? displayGiveaways: undefined}
+                                dataSource={activeGiveaways ? activeGiveaways: undefined}
+                                renderItem={giveaway => (
+                                    <List.Item>
+                                        <GiveawayCard  giveaway={giveaway}/>
+                                    </List.Item>
+                                )}
+                            />
+                            <Divider>Stopped Giveaways</Divider>
+                            <List
+                                grid={{
+                                    gutter: 16,
+                                    xs: 1,
+                                    sm: 2,
+                                    md: 3,
+                                    lg: 4,
+                                    xl: 4,
+                                  }}
+                                loading={loads.publicGiveaways}
+                                dataSource={stoppedGiveaways ? stoppedGiveaways: undefined}
                                 renderItem={giveaway => (
                                     <List.Item>
                                         <GiveawayCard  giveaway={giveaway}/>
