@@ -7,13 +7,11 @@ import "antd/dist/antd.css";
 import './Header.css';
 import { NavBar } from '../NavBar/NavBar';
 import { DataContext } from '../../context/DataProvider';
-import { CookieService } from '../../services/storage';
-import { env } from '../../config/globals';
 export const Header = ({title = 'Title'}) => {
-	const { state: { auth }, action: { resetState } } = useContext(DataContext);
+	const { state: { auth }, action: { resetAuth, resetMyGiveaways } } = useContext(DataContext);
 	const onLogout = () => {
-		CookieService.removeCookie(env.COOKIE_SECRET_KEY)
-		resetState();
+		resetAuth()
+		resetMyGiveaways()
 	};
 	return (
 		<header>

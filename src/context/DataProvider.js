@@ -1,7 +1,7 @@
 import React, { createContext, useEffect } from 'react';
 import { useState } from 'react';
 import { CookieService } from '../services/storage';
-import { decode } from 'jsonwebtoken';
+import decode from 'jwt-decode'
 import { env } from '../config/globals';
 
 export const DataContext = createContext();
@@ -70,6 +70,7 @@ export const DataProvider = ({ children }) => {
 		});
 	};
 	const resetAuth = () => {
+		CookieService.removeCookie(env.COOKIE_SECRET_KEY)
 		setState((state) => {
 			return { ...state, auth: initState.auth };
 		});
@@ -83,6 +84,12 @@ export const DataProvider = ({ children }) => {
 	const setMyGiveaways = (giveaways) => {
 		setState(state => {
 			return {...state, myGiveaways: giveaways}
+		})
+	}
+
+	const resetMyGiveaways = () => {
+		setState(state => {
+			return {...state, myGiveaways: null, initLoads: {...state.initLoads, myGiveaways: false}}
 		})
 	}
 
@@ -138,6 +145,7 @@ export const DataProvider = ({ children }) => {
 					resetAuth,
 					setPublicGiveaways,
 					setMyGiveaways,
+					resetMyGiveaways,
 					addGiveaway,
 					setCategories,
 					addCategory,

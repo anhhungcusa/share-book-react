@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import "./Login.css";
 import { Form, Input, Button, message } from "antd";
 import { useRouter } from "../../hooks/useRouter";
@@ -12,14 +12,15 @@ export const LoginPage = () => {
   const router = useRouter();
   const {
     state: {auth},
-    action: { setAuth }
+    action: { setAuth, resetMyGiveaway }
   } = useContext(DataContext);
-  useEffect(() => {
-    const hasFrom = router.state ? router.state.from : undefined
-    if(auth.isLoggedIn === true && !hasFrom) {
-      router.goBack()
-    }
-  }, [auth.isLoggedIn, router])
+  // useEffect(() => {
+  //   if(auth.isLoggedIn === true) {
+  //     setAuth()
+  //     resetMyGiveaway()
+  //   }
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
   const [isValidForm, setIsValidForm] = useState(false);
   const onChangeFields = (_, allFields) => {
     const isValid = allFields.every(
@@ -38,9 +39,14 @@ export const LoginPage = () => {
 
   const onFinish = ({ username, password }) => {
     setLoading(true);
+    if (auth.isLoggedIn === true) {
+      setAuth()
+      resetMyGiveaway()
+    }
+
     AuthService.login(username, password)
       .then(({ token, user }) => {
-        const { from = "/" } = router.state || {};
+        let { from = "/" } = router.state || {};
         setAuth(user, token);
         CookieService.setCookie(
           env.COOKIE_SECRET_KEY, 

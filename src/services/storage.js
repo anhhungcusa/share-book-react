@@ -1,4 +1,4 @@
-import {decode} from 'jsonwebtoken'
+import decode from 'jwt-decode'
 export const setSStorage = (key, value) => {
     let store = {value}
         store = JSON.stringify(store)
