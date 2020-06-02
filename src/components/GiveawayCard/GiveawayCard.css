@@ -5,3 +5,10 @@
 .giveaway-card .giveaway-info {
     margin-top: 5px;
 }
+
+.giveaway-card .giveaway-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
