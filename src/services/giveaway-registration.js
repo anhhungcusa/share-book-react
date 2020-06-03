@@ -3,7 +3,6 @@ import { axios } from "../config/axios"
 const pathname = '/registrations'
 
 const registerGiveaway = (email, luckyNumber, giveawayId) => {
-
     return axios({
         url: pathname,
         method: 'post',

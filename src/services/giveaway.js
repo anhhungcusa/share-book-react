@@ -67,12 +67,9 @@ const updateWinnerInfo = ({fullname, address, phone, email}, giveawayId, token) 
         })
 }
 
-const fetchGiveaways = (categoryId, ended, {skip, limit}, token) => {
+const fetchGiveaways = (categoryId, ended, {skip, limit}) => {
     return axios({
         url: pathname,
-        headers: {
-            'Authorization': `Bearer ${token}`
-        },
         method: 'get',
         params: {
             categoryId, ended, skip, limit
@@ -104,11 +101,26 @@ const removeGiveaway = (giveawayId, token) => {
         })
 }
 
+const fetchRegistrationsOfGiveaway = (giveawayId) => {
+    return axios({
+        url: `${pathname}/${giveawayId}/registrations`,
+        method: 'get'
+    }).then(res => res.data.registrations)
+    .catch(err => {
+        const messageError = (
+            err.response && 
+            err.response.data && 
+            err.response.data.message) || 'action failed';
+        throw new Error(messageError);  
+    })
+}
+
 export const GiveawayService =  {
     pathname,
     createGiveaway,
     startGiveaway,
     updateWinnerInfo,
-    getGiveaways: fetchGiveaways,
-    removeGiveaway
+    fetchGiveaways,
+    removeGiveaway,
+    fetchRegistrationsOfGiveaway
 }
