@@ -1,0 +1,11 @@
+.registration .registration__owner  i{
+    color: #000;
+    font-weight: 500;
+    word-break: break-all;
+    
+}
+
+.registrations  .ant-list-items{
+    max-height: 500px;
+    overflow-y: auto;
+}
