@@ -1,0 +1,9 @@
+.giveaway-detail .giveaway-gift img{
+    max-height: 500px;
+    max-width: 100%;
+}
+
+.giveaway-detail .giveaway-owner .giveaway-owner__name {
+    color: #000;
+    font-weight: 500;
+}
