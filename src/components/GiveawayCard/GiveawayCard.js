@@ -4,16 +4,19 @@ import moment from 'moment'
 import {UserOutlined} from '@ant-design/icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faExpandArrowsAlt} from '@fortawesome/free-solid-svg-icons'
-import { Card, Avatar, Space, Alert, Tag } from 'antd'
+import { Card, Avatar, Space, Tag } from 'antd'
 
-export const GiveawayCard = ({giveaway}) => {
+export const GiveawayCard = ({giveaway, expand}) => {
     const {title, gift, description, byUser, begin, end, numParticipants, result} = giveaway
+    const onExpandCard = () => {
+        expand(giveaway)
+    }
     return (
         <Card
             className="giveaway-card"
             title={title}
             actions={[
-                <FontAwesomeIcon icon={faExpandArrowsAlt} />
+                <FontAwesomeIcon onClick={onExpandCard} icon={faExpandArrowsAlt} />
             ]}
             cover={<img alt="gift-img" src={gift.image} />}
         >   
