@@ -47,7 +47,7 @@ export const LoginPage = () => {
     AuthService.login(username, password)
       .then(({ token, user }) => {
         let { from = "/" } = router.state || {};
-        setAuth(user, token);
+        setAuth(token, user);
         CookieService.setCookie(
           env.COOKIE_SECRET_KEY, 
           token)
