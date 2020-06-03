@@ -6,6 +6,7 @@ import { message, Row, Col, List, Divider } from 'antd'
 import { CategoryService } from '../../services/category'
 import { CategoryList } from '../../components/CategoryList/CategoryList'
 import { GiveawayCard } from '../../components/GiveawayCard/GiveawayCard'
+import { GiveawayDetailModal } from '../../components/modals/GiveawayDetail/GiveawayDetail'
 
 export const GiveawayPage = () => {
     const {
@@ -16,10 +17,11 @@ export const GiveawayPage = () => {
             setCategories,
         }
     } = useContext(DataContext)
+    // init load data
     useEffect(() => {
         if(initLoads.publicGiveaways === false) {
             setLoading('publicGiveaways', true)
-            GiveawayService.getGiveaways(null, null, {skip: 0, limit: 100})
+            GiveawayService.fetchGiveaways(null, null, {skip: 0, limit: 100})
                 .then(giveaways => {
                     setPublicGiveaways(giveaways)
                     setInitLoading('publicGiveaways', true)
@@ -50,6 +52,7 @@ export const GiveawayPage = () => {
         if(id === selectedCategoryId) return
         setSelectedCategoryId(id)
     }
+
     const [displayGiveaways, setDisplayGiveaways] = useState(null)
     const [activeGiveaways, stoppedGiveaways] = useMemo(() => {
         if(!displayGiveaways) return [null, null]
@@ -64,7 +67,6 @@ export const GiveawayPage = () => {
                 let [ _ , stopGiveaways = []] = acc
                 stopGiveaways.push(giveaway)
             }
-            console.log(acc)
             return acc
         }, [undefined, undefined])
     }, [displayGiveaways])
@@ -77,12 +79,24 @@ export const GiveawayPage = () => {
         const filteredDisplayGiveaways = publicGiveaways.filter(giveaway => giveaway.category._id === selectedCategoryId)
         setDisplayGiveaways(filteredDisplayGiveaways)
     }, [defaultSelectedCategory._id, publicGiveaways, selectedCategoryId])
+    const [visibleModal, setVisibleModal] = useState(false)
+    const onOpenModal = (giveaway) => {
+        setVisibleModal(true)
+        setSelectedGiveaway(giveaway)
+    }
+    const onCloseModal = () => {
+        setVisibleModal(false)
+    }
+
+    const [selectedGiveaway, setSelectedGiveaway] = useState(null)
+
+
     return (
         <div className="giveaway-page">
             <h1 className="title">RECEIVE BOOK FREE!!!</h1>
             <div className='row-wrapper'>
                 <Row gutter={[10, 10]}>
-                    <Col xs={24} sm={4} md={4} lg={4} xl={4}>
+                    <Col xs={24} sm={4} md={4} lg={4} xl={4} xxl={4}>
                         <div className="category-list">
                             <CategoryList 
                                 onChangeSelectedCategory={selectCategory}
@@ -93,7 +107,7 @@ export const GiveawayPage = () => {
                                 />
                         </div>
                     </Col>
-                    <Col xs={24} sm={20} md={20} lg={20} xl={20}>
+                    <Col xs={24} sm={20} md={20} lg={20} xl={20} xxl={20}>
                         <div className="giveaway-list">
                             <Divider>Active Giveaways</Divider>
                             <List
@@ -104,12 +118,15 @@ export const GiveawayPage = () => {
                                     md: 3,
                                     lg: 4,
                                     xl: 4,
+                                    xxl: 5
                                   }}
                                 loading={loads.publicGiveaways}
                                 dataSource={activeGiveaways ? activeGiveaways: undefined}
                                 renderItem={giveaway => (
                                     <List.Item>
-                                        <GiveawayCard  giveaway={giveaway}/>
+                                        <GiveawayCard 
+                                        
+                                        expand={onOpenModal}  giveaway={giveaway}/>
                                     </List.Item>
                                 )}
                             />
@@ -122,12 +139,13 @@ export const GiveawayPage = () => {
                                     md: 3,
                                     lg: 4,
                                     xl: 4,
+                                    xxl: 5
                                   }}
                                 loading={loads.publicGiveaways}
                                 dataSource={stoppedGiveaways ? stoppedGiveaways: undefined}
                                 renderItem={giveaway => (
                                     <List.Item>
-                                        <GiveawayCard  giveaway={giveaway}/>
+                                        <GiveawayCard expand={onOpenModal}  giveaway={giveaway}/>
                                     </List.Item>
                                 )}
                             />
@@ -135,6 +153,12 @@ export const GiveawayPage = () => {
                     </Col>
                 </Row>
             </div>
+            {selectedGiveaway && 
+                <GiveawayDetailModal 
+                    giveaway={selectedGiveaway}
+                    visible={visibleModal}
+                    close={onCloseModal} />
+            }
         </div>
     )
 }
