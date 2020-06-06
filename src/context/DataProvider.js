@@ -28,27 +28,7 @@ const initState = {
 		myGiveaways: false
 	}
 };
-const initStateTest = {
-	auth: {
-		isLoggedIn: true,
-		user: {
-			createdAt: "2020-05-30T17:16:56.504Z",
-			email: "test@gmail.com",
-			updatedAt: "2020-05-30T17:16:56.504Z",
-			username: "test",
-			__v: 0,
-			_id: "5ed29508150d2b5ed4350b28"
-		},
-		token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWQyOTUwODE1MGQyYjVlZDQzNTBiMjgiLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE1OTA5MDM1MjYsImV4cCI6MTU5MTUwODMyNn0.XTr-JTuhgq3ge_vpqRxOCnQLWdF16YrVrl5PyBv8o2s'
-	},
-	publicGiveaways: null,
-	categories: null,
-	loads: {
-		auth: false,
-		publicGiveaways: false,
-		categories: false
-	}
-};
+
 export const DataProvider = ({ children }) => {
 	const [ state, setState ] = useState(
 		// initStateTest,
