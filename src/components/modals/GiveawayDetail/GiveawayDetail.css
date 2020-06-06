@@ -7,3 +7,8 @@
     color: #000;
     font-weight: 500;
 }
+
+.giveaway-detail .rules {
+    list-style-type: none;
+    padding-left: 0;
+}

@@ -1,3 +1,4 @@
+import moment from 'moment'
 export class RequestException {
     constructor(status, message) {
         this.status = status;
@@ -42,3 +43,9 @@ export const beforeUpload = (file, alerter) => {
 	}
 	return isJpgOrPng && isLt2M;
 };
+
+
+export const convertDateToTimeFromNow = (dateString, hasSuffix = true) => {
+    return moment(dateString).fromNow(!hasSuffix);
+
+}

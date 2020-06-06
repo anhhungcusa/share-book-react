@@ -79,14 +79,22 @@ export const GiveawayDetailModal = ({
                                 <span className="giveaway-owner__name"> {byUser.username} </span>
                             </Space>
                         </div>
+                        <div className="giveaway-description">
+                            {description}
+                        </div>
                         <Space>
                             <Tag color="#108ee9" >number of participants: {numParticipants} </Tag>
                             <Tag color="#108ee9">start at {moment(begin).format('DD/MM/YYYY ss:mm:HH')}</Tag>
                         </Space>
-                        <div className="giveaway-description">
-                            {description}
-                        </div>
-
+                        <ul className='rules'>
+                            <li>
+                                <b>how to join giveaway: </b> 
+                                <ul>
+                                    <li>comment 1 lucky number from 1 to {numParticipants} so that you can win</li>
+                                    <li>give us your email so that we can contact you when you win</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </Space>
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>

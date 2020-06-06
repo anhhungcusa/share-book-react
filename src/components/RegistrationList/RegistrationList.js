@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './RegistrationList.css'
 import { Space, List, Form, Input, Button, Avatar, Tag } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
+import {convertDateToTimeFromNow} from '../../utils'
 export const RegistrationList = ({
     registrations, addNewRegistration,
     loading, numParticipants
@@ -35,15 +36,18 @@ export const RegistrationList = ({
                 dataSource={registrations ? registrations : undefined}
                 renderItem={registration => (
                     <List.Item>
-                        <Space size="middle" className="registration" >
-                            <Space size='small' className="registration__owner">
-                                <Avatar size='small' icon={<UserOutlined />} />
-                                <i>
-                                    {registration.email}:
-                                </i>
+                        <div className="d-flex-between w-100">
+                            <Space size="middle" className="registration" >
+                                <Space size='small' className="registration__owner">
+                                    <Avatar size='small' icon={<UserOutlined />} />
+                                    <i>
+                                        {registration.email}:
+                                    </i>
+                                </Space>
+                                <span className="registration__lucky-num">{registration.luckyNumber}</span>
                             </Space>
-                            <span className="registration__lucky-num">{registration.luckyNumber}</span>
-                        </Space>
+                            <i className="time">{convertDateToTimeFromNow(registration.createdAt)}  </i>
+                        </div>
                     </List.Item>
                 )}
             />
