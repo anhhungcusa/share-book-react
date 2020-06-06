@@ -45,6 +45,7 @@ export const GiveawayPage = () => {
                     setLoading('categories', false)
                 })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const defaultSelectedCategory = useMemo(() => ({name: 'all', _id: 'all'}), [])
     const [selectedCategoryId, setSelectedCategoryId] = useState(defaultSelectedCategory._id)
