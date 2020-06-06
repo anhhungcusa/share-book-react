@@ -7,7 +7,9 @@ import { CreateGiveawayModal } from '../../components/modals/CreateGiveawayModal
 import { CategoryService } from '../../services/category'
 import { GiveawayService } from '../../services/giveaway'
 import { UserService } from '../../services/user'
+import { env } from '../../config/globals'
 export const ManageGiveawaysPage = () => {
+
     const {
         state: { loads, initLoads, categories, auth, myGiveaways },
         action: {
@@ -80,7 +82,8 @@ export const ManageGiveawaysPage = () => {
         }
         setClickedGiveawayId(giveawayId)
         setActionLoading(true)
-        GiveawayService.startGiveaway(giveawayId, auth.token)
+        const href = `${env.DOMAIN}/register-winner`
+        GiveawayService.startGiveaway(giveawayId, auth.token, href)
             .then(giveaway => {
                 // do something
                 UserService.fetchGiveawaysByUser(auth.user._id, auth.token, { skip: 0, limit: 100 })
