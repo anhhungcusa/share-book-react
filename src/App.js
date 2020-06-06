@@ -8,6 +8,7 @@ import { RegisterPage } from './pages/Register/Register';
 import { GiveawayPage } from './pages/Giveaway/Giveaway';
 import { RouteWithAuth } from './components/custom-routes/withAuth';
 import { ManageGiveawaysPage } from './pages/ManageGiveaways/ManageGiveaways';
+import { RegisterWinnerInfoPage } from './pages/RegisterWinnerInfo/RegisterWinnerInfo';
 
 function App() {
   useEffect(() => {
@@ -24,6 +25,9 @@ function App() {
             </Route>
             <Route path="/register">
               <RegisterPage />
+            </Route>
+            <Route path="/register-winner">
+              <RegisterWinnerInfoPage />
             </Route>
             <Route exact path="/">
               <GiveawayPage />
