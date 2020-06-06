@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './GiveawayDetail.css'
-import { Modal, Space, Tag, Row, Col, Grid, Avatar, message } from 'antd'
+import { Modal, Space, Tag, Row, Col, Avatar, message } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import moment from 'moment'
 import { RegistrationList } from '../../RegistrationList/RegistrationList'
