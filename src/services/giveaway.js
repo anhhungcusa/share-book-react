@@ -29,7 +29,7 @@ const createGiveaway = ({
         })
     }
     
-const startGiveaway = (giveawayId, token) => {
+const startGiveaway = (giveawayId, token, href) => {
     return axios({
         url: `${pathname}/${giveawayId}/start`,
         headers: {
@@ -37,6 +37,9 @@ const startGiveaway = (giveawayId, token) => {
             
         },
         method: 'patch',
+        params: {
+            href
+        }
     }).then(res => res.data.giveaway)
     .catch(err => {
         const messageError = (
@@ -47,12 +50,9 @@ const startGiveaway = (giveawayId, token) => {
     })
 }
 
-const updateWinnerInfo = ({fullname, address, phone, email}, giveawayId, token) => {
+const updateWinnerInfo = ({fullname, address, phone, email}, giveawayId) => {
     return axios({
         url: `${pathname}/${giveawayId}`,
-        headers: {
-            'Authorization': `Bearer ${token}`
-        },
         method: 'patch',
         data: {
             fullname, address, phone, email
