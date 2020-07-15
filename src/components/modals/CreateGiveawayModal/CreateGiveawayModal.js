@@ -5,7 +5,14 @@ import moment from 'moment'
 import './CreateGiveawayModal.css';
 import { FitLoading } from '../../common/Loading';
 import { beforeUpload, getBase64 } from '../../../utils';
-import { env } from '../../../config/globals';
+
+const dummyRequest = ({ onSuccess }) => {
+	setTimeout(() => {
+		onSuccess("ok")
+	}, 0);
+  };
+
+
 export const CreateGiveawayModal = ({
     visible,
     close,
@@ -49,13 +56,20 @@ export const CreateGiveawayModal = ({
 
     // handle upload img
     const handleChangeImageUrl = (info) => {
-        if (info.file.status === 'uploading') {
+        const {status, originFileObj} = info.file
+
+        if (status === 'error') {
+			setLoadingImg(false);
+			message.error('upload image failed')
+        }
+        
+        if (status === 'uploading') {
             setLoadingImg(true);
             return;
         }
-        if (info.file.status === 'done') {
+        if (status === 'done') {
             // Get this url from response in real world.
-            getBase64(info.file.originFileObj, (imageUrl) => {
+            getBase64(originFileObj, (imageUrl) => {
                 setLoadingImg(false);
                 setGiltImg(imageUrl)
             });
@@ -169,8 +183,7 @@ export const CreateGiveawayModal = ({
                     <Upload
                         listType="picture-card"
                         showUploadList={false}
-                        action={`${env.SERVER_URL}/users/mock-upload`}
-                        // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        customRequest={dummyRequest}
                         beforeUpload={(file) => beforeUpload(file, message)}
                         onChange={handleChangeImageUrl}
                     >
