@@ -22,7 +22,7 @@ export const GiveawayCard = ({giveaway, expand}) => {
         >   
         <div>
             <Card.Meta avatar={ <Avatar  size='default' icon={<UserOutlined />} />} 
-            title={byUser.username} description={<span className="giveaway-description">{description}</span>} />
+            title={byUser ? byUser.username : 'not found'} description={<span className="giveaway-description">{description}</span>} />
         </div>
             <Space className="giveaway-info" size={2} direction='vertical'  >
                 {  result && <Tag color="#87d068" >lucky number: {result.winningNumbers} </Tag>}
